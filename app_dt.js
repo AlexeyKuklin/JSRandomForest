@@ -3,6 +3,8 @@
 var tds = require('./lib/dataset');
 var tdt = require('./lib/dt');
 var rf  = require('./lib/rf');
+var viz  = require('./lib/dtviz');
+
 //var utils = new (require('.lib/utils')).Utils();
 
 //PassengerId,Survived,Pclass,Name,Sex,Age,SibSp,Parch,Ticket,Fare,Cabin,Embarked
@@ -12,22 +14,17 @@ var ds = new tds.Dataset(['N', 'N', 'C', 'N']);
 ds.loadFromCSV('./data/train.csv', true, [0, 2, 4, 5], 1);
 ds.setAllFeatureColumns([2, 4, 5]);
 var median_age = ds.setMissingValue(3, null); //3 in samples...
-console.log('MEDIAN:');
-console.log(median_age);
+console.log('MEDIAN: ' + median_age);
 
 console.log(ds.header);
 console.log(ds.samples);
 
-
 //console.log(ds.samples[0].features);
 //console.log(ds.samples[0].label);
 
-
-
-/****
-
-//var dt = new tdt.DTree(ds);
-********/
+var dt = new tdt.DTree(ds);
+var s = viz.treeToHtml(dt.root, ds);
+console.log(s);
 
 /*
 var ds2 = new tds.Dataset(['N', 'N', 'N', 'N']);
